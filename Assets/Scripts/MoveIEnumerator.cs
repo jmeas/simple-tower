@@ -20,13 +20,11 @@
   // The value of UnityEngine.Time.time for the previous frame of this animation
   float lastTime;
 
-  public MoveIEnumerator(UnityEngine.GameObject obj, float finalY, float time) {
+  public MoveIEnumerator(UnityEngine.GameObject obj, UnityEngine.Vector3 dest, float time) {
     target = obj;
     initial = obj.transform.position;
     duration = time;
-
-    // Create our destination. Right now, this IEnumerator only allows vertical movement.
-    destination = new UnityEngine.Vector3(target.transform.position.x, finalY, target.transform.position.z);
+    destination = dest;
 
     // We set the "last time" to be the current time, as this is the start of the animation.
     lastTime = UnityEngine.Time.time;
