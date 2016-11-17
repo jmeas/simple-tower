@@ -1,4 +1,4 @@
-﻿public class MoveIEnumerator : System.Collections.IEnumerator {
+﻿public class Transition : System.Collections.IEnumerator {
   // The GameObject being moved
   UnityEngine.GameObject target;
 
@@ -20,7 +20,7 @@
   // The value of UnityEngine.Time.time for the previous frame of this animation
   float lastTime;
 
-  public MoveIEnumerator(UnityEngine.GameObject obj, UnityEngine.Vector3 dest, float time) {
+  public Transition(UnityEngine.GameObject obj, UnityEngine.Vector3 dest, float time) {
     target = obj;
     initial = obj.transform.position;
     duration = time;
