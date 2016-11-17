@@ -9,9 +9,9 @@
   }
 
   public System.Collections.IEnumerator CheckOutOfBounds() {
-    // This checks the boundaries always. Eventually, we'll want to turn this off
-    // under certain conditions, like when the player doesn't have control over
-    // the player's movement.
+    // This checks the boundaries continuously. Eventually, we'll want to turn
+    // this off at certain times, like when the player doesn't have control over
+    // the character's movement.
     while(true) {
       if (this.transform.position.y < -6) {
         // Reset the player's velocity and their position
