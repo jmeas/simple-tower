@@ -17,8 +17,6 @@
     if (!transitionComplete) {
       UnityEngine.Vector3 updatedPos = new UnityEngine.Vector3 (curPos.x, UnityEngine.Mathf.MoveTowards(currentY, destination, speed * UnityEngine.Time.deltaTime), curPos.z);
       this.target.transform.position = updatedPos;
-    } else {
-      UnityEngine.Debug.Log("Transition is complete");
     }
 
     return !transitionComplete;
