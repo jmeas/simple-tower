@@ -2,8 +2,8 @@
   CinematicMode cinematicMode;
   UnityEngine.GameObject player;
 
-  // How fast the elevator moves
-  float elevatorSpeed = 2.6f;
+  // The time it takes the elevator to move up or down, in seconds
+  float transitionDuration = 1.5f;
   // This is the difference in the elevator and player's y position
   float playerHeightDiff = 0.0639f;
 
@@ -15,7 +15,7 @@
 
   System.Collections.IEnumerator MoveElevator(string direction) {
     float endDestination = direction == "down" ? 0.12f : 9.94f;
-    yield return new MoveIEnumerator(this.gameObject, endDestination, elevatorSpeed);
+    yield return new MoveIEnumerator(this.gameObject, endDestination, transitionDuration);
     // Cinematic mode began while the elevator was going down. So we need to turn it off.
     if (direction == "down") {
       cinematicMode.ExitCinematicMode();
@@ -25,7 +25,7 @@
   System.Collections.IEnumerator MovePlayer(string direction) {
     float endDestination = direction == "down" ? 0.12f : 9.94f;
     endDestination += playerHeightDiff;
-    yield return new MoveIEnumerator(this.player, endDestination, elevatorSpeed);
+    yield return new MoveIEnumerator(this.player, endDestination, transitionDuration);
   }
 
   void OnTriggerEnter(UnityEngine.Collider col) {
