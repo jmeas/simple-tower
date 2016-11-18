@@ -9,6 +9,9 @@
   // The type of easing to use for the elevator moving up and down. For options,
   // see Transition.cs
   string easingFunction = "Linear";
+  // Whether the elevator is up or down. This can be used to prevent weird bugs where it, say,
+  // tries to go down when it's already down.
+  bool isLocatedUp = true;
 
   System.Collections.Generic.Dictionary<string, float> elevatorPositions = new System.Collections.Generic.Dictionary<string, float>() {
     {"up", 9.94f},
@@ -25,9 +28,12 @@
     float endY = elevatorPositions[direction];
     UnityEngine.Vector3 destination =  new UnityEngine.Vector3(transform.position.x, endY, transform.position.z);
     yield return new Vector3Transition(gameObject, destination, transitionDuration, easingFunction);
-    // Cinematic mode began while the elevator was going down. So we need to turn it off.
     if (direction == "down") {
+      // Cinematic mode began while the elevator was going down. So we need to turn it off.
       cinematicMode.ExitCinematicMode();
+      isLocatedUp = false;
+    } else {
+      isLocatedUp = true;
     }
   }
 
@@ -39,6 +45,9 @@
   }
 
   void OnTriggerEnter(UnityEngine.Collider col) {
+    if (!isLocatedUp) {
+      return;
+    }
     if (col.gameObject.name == "ThirdPersonController") {
       cinematicMode.EnterCinematicMode();
       StartCoroutine(MoveElevator("down"));
@@ -49,6 +58,9 @@
   // This is called by the child when the elevator has been exited
   // by the player.
   void ExitElevator() {
+    if (isLocatedUp) {
+      return;
+    }
     StopCoroutine("MoveElevator");
     StartCoroutine(MoveElevator("up"));
   }
