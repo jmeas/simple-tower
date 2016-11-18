@@ -37,7 +37,7 @@
 
     // We use our transform function to find the new position. Because it uses progress, we can
     // swap "Lerp" for any easing function that we'd like.
-    target.transform.position = UnityEngine.Vector3.Lerp(initial, destination, progress);
+    target.transform.position = VectorEasing.Quadratic.InOut(initial, destination, progress);
 
     // Update the total time with however much time has passed since our lastTime.
     totalTime += UnityEngine.Time.time - lastTime;
