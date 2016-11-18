@@ -15,8 +15,8 @@
 
   System.Collections.IEnumerator MoveElevator(string direction) {
     float endY = direction == "down" ? 0.12f : 9.94f;
-    UnityEngine.Vector3 destination =  new UnityEngine.Vector3(this.transform.position.x, endY, this.transform.position.z);
-    yield return new Transition(this.gameObject, destination, transitionDuration);
+    UnityEngine.Vector3 destination =  new UnityEngine.Vector3(transform.position.x, endY, transform.position.z);
+    yield return new Transition(gameObject, destination, transitionDuration);
     // Cinematic mode began while the elevator was going down. So we need to turn it off.
     if (direction == "down") {
       cinematicMode.ExitCinematicMode();

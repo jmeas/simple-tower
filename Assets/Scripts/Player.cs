@@ -4,7 +4,7 @@
   UnityEngine.Vector3 stationary = new UnityEngine.Vector3(0, 0, 0);
 
   void Start() {
-    rb = this.GetComponent<UnityEngine.Rigidbody>();
+    rb = GetComponent<UnityEngine.Rigidbody>();
     StartCoroutine(CheckOutOfBounds());
   }
 
@@ -13,10 +13,10 @@
     // this off at certain times, like when the player doesn't have control over
     // the character's movement.
     while(true) {
-      if (this.transform.position.y < -6) {
+      if (transform.position.y < -6) {
         // Reset the player's velocity and their position
         rb.velocity = stationary;
-        this.transform.position = startPosition;
+        transform.position = startPosition;
       }
 
       // The player bounds are pretty loosely defined, so it's fine to check on
