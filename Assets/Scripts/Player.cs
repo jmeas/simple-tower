@@ -1,7 +1,7 @@
 ﻿public class Player : UnityEngine.MonoBehaviour {
   public UnityEngine.Rigidbody rb;
   UnityEngine.Vector3 startPosition = new UnityEngine.Vector3(0f, 17f, 0f);
-  UnityEngine.Vector3 stationary = new UnityEngine.Vector3(0, 0, 0);
+  UnityEngine.Vector3 stationary = UnityEngine.Vector3.zero;
 
   void Start() {
     rb = GetComponent<UnityEngine.Rigidbody>();
