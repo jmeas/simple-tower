@@ -6,6 +6,9 @@
   float transitionDuration = 1.5f;
   // This is the difference in the elevator and player's y position
   float playerHeightDiff = 0.0639f;
+  // The type of easing to use for the elevator moving up and down. For options,
+  // see Transition.cs
+  string easingFunction = "Linear";
 
   System.Collections.Generic.Dictionary<string, float> elevatorPositions = new System.Collections.Generic.Dictionary<string, float>() {
     {"up", 9.94f},
@@ -21,7 +24,7 @@
   System.Collections.IEnumerator MoveElevator(string direction) {
     float endY = elevatorPositions[direction];
     UnityEngine.Vector3 destination =  new UnityEngine.Vector3(transform.position.x, endY, transform.position.z);
-    yield return new Transition(gameObject, destination, transitionDuration);
+    yield return new Transition(gameObject, destination, transitionDuration, easingFunction);
     // Cinematic mode began while the elevator was going down. So we need to turn it off.
     if (direction == "down") {
       cinematicMode.ExitCinematicMode();
@@ -32,7 +35,7 @@
     float endY = elevatorPositions[direction];
     endY += playerHeightDiff;
     UnityEngine.Vector3 destination =  new UnityEngine.Vector3(player.transform.position.x, endY, player.transform.position.z);
-    yield return new Transition(player, destination, transitionDuration);
+    yield return new Transition(player, destination, transitionDuration, easingFunction);
   }
 
   void OnTriggerEnter(UnityEngine.Collider col) {
