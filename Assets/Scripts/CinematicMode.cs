@@ -1,18 +1,24 @@
-﻿public class CinematicMode : UnityEngine.MonoBehaviour {
+﻿using UnityStandardAssets.Characters.ThirdPerson;
+
+public class CinematicMode : UnityEngine.MonoBehaviour {
   bool cinematicModeActive = false;
   bool enterCinematicMode = false;
   bool exitCinematicMode = false;
   int barSpeed = 400;
   int barHeight = 100;
 
-  private UnityEngine.Rect topBar;
-  private UnityEngine.Rect bottomBar;
-  private static UnityEngine.Texture2D _staticRectTexture;
-  private static UnityEngine.GUIStyle _staticRectStyle;
+  UnityEngine.Rect topBar;
+  UnityEngine.Rect bottomBar;
+  static UnityEngine.Texture2D _staticRectTexture;
+  static UnityEngine.GUIStyle _staticRectStyle;
+  ThirdPersonUserControlCustom userControl;
 
   void Start() {
     topBar = new UnityEngine.Rect(0, -100, UnityEngine.Screen.width, barHeight);
     bottomBar = new UnityEngine.Rect(0, UnityEngine.Screen.height, UnityEngine.Screen.width, barHeight);
+
+    UnityEngine.GameObject player = UnityEngine.GameObject.Find("ThirdPersonController");
+    userControl = player.GetComponent<ThirdPersonUserControlCustom>();
   }
 
   void Update() {
@@ -28,6 +34,7 @@
         topBar.y = UnityEngine.Mathf.MoveTowards(topBar.y, -100, barSpeed * UnityEngine.Time.deltaTime);
         bottomBar.y = UnityEngine.Mathf.MoveTowards(bottomBar.y, UnityEngine.Screen.height, barSpeed * UnityEngine.Time.deltaTime);
       } else {
+        userControl.enableMovement();
         cinematicModeActive = false;
         exitCinematicMode = false;
       }
@@ -35,6 +42,7 @@
   }
 
   public void EnterCinematicMode() {
+    userControl.disableMovement();
     exitCinematicMode = false;
     enterCinematicMode = true;
     cinematicModeActive = true;
