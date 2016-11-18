@@ -7,6 +7,11 @@
   // This is the difference in the elevator and player's y position
   float playerHeightDiff = 0.0639f;
 
+  System.Collections.Generic.Dictionary<string, float> elevatorPositions = new System.Collections.Generic.Dictionary<string, float>() {
+    {"up", 9.94f},
+    {"down", 0.12f}
+  };
+
   void Start() {
     UnityEngine.GameObject cinematicModeObj = UnityEngine.GameObject.Find("CinematicMode");
     cinematicMode = cinematicModeObj.GetComponent<CinematicMode>();
@@ -14,7 +19,7 @@
   }
 
   System.Collections.IEnumerator MoveElevator(string direction) {
-    float endY = direction == "down" ? 0.12f : 9.94f;
+    float endY = elevatorPositions[direction];
     UnityEngine.Vector3 destination =  new UnityEngine.Vector3(transform.position.x, endY, transform.position.z);
     yield return new Transition(gameObject, destination, transitionDuration);
     // Cinematic mode began while the elevator was going down. So we need to turn it off.
@@ -24,7 +29,7 @@
   }
 
   System.Collections.IEnumerator MovePlayer(string direction) {
-    float endY = direction == "down" ? 0.12f : 9.94f;
+    float endY = elevatorPositions[direction];
     endY += playerHeightDiff;
     UnityEngine.Vector3 destination =  new UnityEngine.Vector3(player.transform.position.x, endY, player.transform.position.z);
     yield return new Transition(player, destination, transitionDuration);
