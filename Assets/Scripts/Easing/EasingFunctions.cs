@@ -7,7 +7,7 @@
 // https://gist.github.com/Fonserbc/3d31a25e87fdaa541ddf
 // which in turn sourced from Tween.js
 
-public class Easing {
+public class EasingFunctions {
   public static float Linear (float k) {
     return k;
   }
